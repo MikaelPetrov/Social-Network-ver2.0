@@ -1,0 +1,9 @@
+.usersBlock {
+    display: grid;
+    grid-template-columns: 90px 300px 100px;
+}
+
+.userPhoto img {
+    border-radius: 30px;
+    width: 60px;
+}
