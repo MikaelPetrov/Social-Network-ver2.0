@@ -1,13 +1,18 @@
+import Preloader from '../../common/Preloader/Preloader';
 import s from './ProfileInfo.module.css';
 
 
-const ProfileInfo = () => {
+const ProfileInfo = (props) => {
+    if (!props.profile) {
+        return <Preloader />
+    }
     return <div>
         <div>
             <img src='https://pixelz.cc/wp-content/uploads/2019/03/chicago-skyline-dual-monitor-wallpaper.jpg'></img>
         </div>
         <div className={s.descriptionBlock}>
-            Ava + description
+            <img src={props.profile.photos.large} style={{ width: '30%' }} />
+                Ava + description
             </div>
     </div>
 }
