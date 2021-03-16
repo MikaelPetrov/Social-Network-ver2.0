@@ -61,7 +61,6 @@ let mapStateToProps = (state) => {
         isFetching: state.usersPage.isFetching,
     }
 }
-
 let mapDispatchToProps = {
     follow,
     unfollow,
