@@ -11,7 +11,7 @@ const ProfileInfo = (props) => {
             <img src='https://pixelz.cc/wp-content/uploads/2019/03/chicago-skyline-dual-monitor-wallpaper.jpg'></img>
         </div>
         <div className={s.descriptionBlock}>
-            <img src={props.profile.photos.large} style={{ width: '30%' }} />
+            <img src={props.profile.photos.large} style={{ width: '10%' }} />
                 Ava + description
             </div>
     </div>
