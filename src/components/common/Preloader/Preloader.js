@@ -1,4 +1,5 @@
-import preloader from "../../../assets/Images/preloaderIcon.gif"
+import preloader from '../../../assets/Images/preloaderIcon.gif';
+
 
 let Preloader = (props) => {
     return <div style={{ width: '200px' }}>
