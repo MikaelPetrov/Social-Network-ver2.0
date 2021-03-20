@@ -1,8 +1,9 @@
-import { usersAPI } from "../api/api";
+import { profileAPI, usersAPI } from "../api/api";
 
 const ADD_POST = 'ADD_POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
+const SET_USER_STATUS = 'SET_USER_STATUS';
 
 let initialState = {
     posts: [
@@ -10,7 +11,8 @@ let initialState = {
         { id: 2, message: 'It\'s wonderful day', likesCount: 21 }
     ],
     newPostText: '',
-    profile: null
+    profile: null,
+    status: '',
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -39,6 +41,12 @@ const profileReducer = (state = initialState, action) => {
                 profile: action.profile
             }
         }
+        case SET_USER_STATUS: {
+            return {
+                ...state,
+                status: action.status
+            }
+        }
         default:
             return state;
     }
@@ -46,12 +54,27 @@ const profileReducer = (state = initialState, action) => {
 
 export const addPostCreator = () => ({ type: ADD_POST });
 export const updateNewPostTextCreator = (text) => ({ type: UPDATE_NEW_POST_TEXT, newText: text });
-export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile });
+export const setUserProfileCreator = (profile) => ({ type: SET_USER_PROFILE, profile });
+export const setUserStatusCreator = (status) => ({ type: SET_USER_STATUS, status });
 
 export const getUserProfileThunkCreator = (userId) => (dispatch) => {
     usersAPI.getUserProfile(userId)
         .then(response => {
-            dispatch(setUserProfile(response.data));
+            dispatch(setUserProfileCreator(response.data));
+        });
+}
+export const getUserStatusThunkCreator = (userId) => (dispatch) => {
+    profileAPI.getUserStatus(userId)
+        .then(response => {
+            dispatch(setUserStatusCreator(response.data));
+        });
+}
+export const updateUserStatusThunkCreator = (status) => (dispatch) => {
+    profileAPI.updateUserStatus(status)
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(setUserStatusCreator(status));
+            }
         });
 }
 

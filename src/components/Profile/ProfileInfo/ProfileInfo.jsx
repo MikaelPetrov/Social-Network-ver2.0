@@ -13,7 +13,9 @@ const ProfileInfo = (props) => {
         </div>
         <div className={s.descriptionBlock}>
             <img src={props.profile.photos.large} style={{ width: '10%' }} />
-            <ProfileStatus status={'WTF?!'} />
+            <ProfileStatus
+                status={props.status}
+                updateUserStatusThunkCreator={props.updateUserStatusThunkCreator} />
         </div>
     </div>
 }
