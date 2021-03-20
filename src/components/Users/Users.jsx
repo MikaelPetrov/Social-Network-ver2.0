@@ -1,5 +1,4 @@
 import { NavLink } from 'react-router-dom';
-import * as axios from 'axios';
 import s from './Users.module.css';
 import userNoImagePhoto from '../../assets/Images/userNoImagePhoto.png';
 
@@ -36,37 +35,13 @@ let Users = (props) => {
                         <div>
                             {u.followed
                                 ? <button disabled={props.isFollowingProgress.some(id => id === u.id)} onClick={() => {
-                                    props.toggleIsFollowingProgress(true, u.id);
-                                    axios
-                                        .delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
-                                            withCredentials: true,
-                                            headers: {
-                                                "API-KEY": "4f060539-4f34-488d-9829-06d708667488"
-                                            }
-                                        })
-                                        .then(response => {
-                                            if (response.data.resultCode === 0) {
-                                                props.unfollow(u.id)
-                                            }
-                                            props.toggleIsFollowingProgress(false, u.id);
-                                        });
-                                }}>Unfollow</button>
+                                    props.unfollowThunkCreator(u.id);
+                                }}>
+                                    Unfollow</button>
                                 : <button disabled={props.isFollowingProgress.some(id => id === u.id)} onClick={() => {
-                                    props.toggleIsFollowingProgress(true, u.id);
-                                    axios
-                                        .post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
-                                            withCredentials: true,
-                                            headers: {
-                                                "API-KEY": "4f060539-4f34-488d-9829-06d708667488"
-                                            }
-                                        })
-                                        .then(response => {
-                                            if (response.data.resultCode === 0) {
-                                                props.follow(u.id)
-                                            }
-                                            props.toggleIsFollowingProgress(false, u.id);
-                                        });
-                                }}>Follow</button>
+                                    props.followThunkCreator(u.id);
+                                }}>
+                                    Follow</button>
                             }
                         </div>
                     </div>
