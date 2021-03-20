@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
+    toggleIsFollowingProgress,
+
     getUsersThunkCreator,
     onPageChangedThunkCreator,
     followThunkCreator,
@@ -48,6 +50,8 @@ let mapStateToProps = (state) => {
     }
 }
 let mapDispatchToProps = {
+    toggleIsFollowingProgress,
+
     getUsersThunkCreator,
     onPageChangedThunkCreator,
     followThunkCreator,
