@@ -1,5 +1,6 @@
 import Preloader from '../../common/Preloader/Preloader';
 import s from './ProfileInfo.module.css';
+import ProfileStatus from './ProfileStatus';
 
 
 const ProfileInfo = (props) => {
@@ -8,12 +9,12 @@ const ProfileInfo = (props) => {
     }
     return <div>
         <div>
-            <img src='https://pixelz.cc/wp-content/uploads/2019/03/chicago-skyline-dual-monitor-wallpaper.jpg'></img>
+            <img src='https://pixelz.cc/wp-content/uploads/2019/03/chicago-skyline-dual-monitor-wallpaper.jpg' />
         </div>
         <div className={s.descriptionBlock}>
             <img src={props.profile.photos.large} style={{ width: '10%' }} />
-                Ava + description
-            </div>
+            <ProfileStatus status={'WTF?!'} />
+        </div>
     </div>
 }
 
