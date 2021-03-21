@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Header from './Header';
 import {
     getAuthMeThunkCreator,
+    logoutThunkCreator,
 } from '../../redux/auth-reducer'
 
 
@@ -22,6 +23,7 @@ let mapStateToProps = (state) => ({
 })
 let mapDispatchToProps = {
     getAuthMeThunkCreator,
+    logoutThunkCreator,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(HeaderContainer);
