@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {
     getUsersThunkCreator,
-    onPageChangedThunkCreator,
     followThunkCreator,
     unfollowThunkCreator,
 } from '../../redux/users-reducer';
@@ -10,6 +9,7 @@ import Users from './Users';
 import Preloader from '../common/Preloader/Preloader';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import { compose } from 'redux';
+import { currentPageSelector, isFetchingSelector, isFollowingProgressSelector, pageSizeSelector, totalCountUsersSelector, usersSelector } from '../../redux/selectors/user-selectors';
 
 
 class UsersContainer extends React.Component {
@@ -18,7 +18,7 @@ class UsersContainer extends React.Component {
         this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize);
     }
     onPageChanged = (pageNumber) => {
-        this.props.onPageChangedThunkCreator(pageNumber);
+        this.props.getUsersThunkCreator(pageNumber, this.props.pageSize);
     }
 
     render() {
@@ -41,18 +41,16 @@ class UsersContainer extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalCountUsers: state.usersPage.totalCountUsers,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        isFollowingProgress: state.usersPage.isFollowingProgress,
+        users: usersSelector(state),
+        pageSize: pageSizeSelector(state),
+        totalCountUsers: totalCountUsersSelector(state),
+        currentPage: currentPageSelector(state),
+        isFetching: isFetchingSelector(state),
+        isFollowingProgress: isFollowingProgressSelector(state),
     }
 }
-
 let mapDispatchToProps = {
     getUsersThunkCreator,
-    onPageChangedThunkCreator,
     followThunkCreator,
     unfollowThunkCreator,
 }

@@ -81,21 +81,13 @@ export const toggleIsFollowingProgress = (isFollowingProgress, userId) => ({ typ
 
 export const getUsersThunkCreator = (currentPage, pageSize) => (dispatch) => {
     dispatch(toggleIsFetching(true));
+    dispatch(setCurrentPage(currentPage));
     usersAPI.getUsers(currentPage, pageSize)
         .then(data => {
             dispatch(toggleIsFetching(false));
             dispatch(setUsers(data.items));
             dispatch(setTotalCountUsers(data.totalCount));
         });
-}
-export const onPageChangedThunkCreator = (pageNumber) => (dispatch) => {
-    dispatch(toggleIsFetching(true));
-    dispatch(setCurrentPage(pageNumber));
-    usersAPI.getUsers(pageNumber)
-        .then(data => {
-            dispatch(toggleIsFetching(false));
-            dispatch(setUsers(data.items));
-        })
 }
 export const followThunkCreator = (userId) => (dispatch) => {
     dispatch(toggleIsFollowingProgress(true, userId));
