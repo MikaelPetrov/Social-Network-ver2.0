@@ -1,16 +1,14 @@
 import { NavLink } from 'react-router-dom';
 import s from './Users.module.css';
 import userNoImagePhoto from '../../assets/Images/userNoImagePhoto.png';
+import React from 'react';
 
 
-let Users = (props) => {
+let Users = React.memo((props) => {
 
     let pagesCount = Math.ceil(props.totalCountUsers / props.pageSize);
-
     let pages = [];
-    for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i);
-    }
+    for (let i = 1; i <= pagesCount; i++) { pages.push(i) };
 
     return <div>
         <div>
@@ -57,6 +55,6 @@ let Users = (props) => {
             </div>)
         }
     </div >
-}
+})
 
 export default Users;

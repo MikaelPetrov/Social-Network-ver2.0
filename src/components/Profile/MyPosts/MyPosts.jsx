@@ -5,6 +5,13 @@ import { AddNewPostReduxForm } from './AddPostForm/AddPostForm';
 
 
 const MyPosts = (props) => {
+
+    // shouldComponentUpdate(nextProps, nextState, nextContext){            /* for Class component - optimization count renders */
+    //     return nextProps != this.props || nextState != this.state
+    // }
+
+    // class MyPosts extends PureComponent {}                               /* short version for Class component */
+
     let postsElements = props.posts.map(p => <Post message={p.message} likesCount={p.likesCount} />);
     let addNewPost = (values) => {
         props.addPost(values.newPostText)
