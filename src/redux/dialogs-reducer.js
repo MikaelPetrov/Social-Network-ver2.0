@@ -1,4 +1,4 @@
-const SEND_MESSAGE = 'SEND_MESSAGE';
+const SEND_MESSAGE = 'social-network-ver1.0/dialogs/SEND_MESSAGE';
 
 let initialState = {
     dialogs: [
@@ -13,21 +13,18 @@ let initialState = {
         { id: 2, message: 'What you doing?' },
         { id: 3, message: 'It\'s very interesting' }
     ],
-};
+}
 
 const dialogsReducer = (state = initialState, action) => {
     switch (action.type) {
         case SEND_MESSAGE:
             let body = action.newMessageBody;
-            return {
-                ...state,
-                messages: [...state.messages, { id: 4, message: body }]
-            }
+            return { ...state, messages: [...state.messages, { id: 4, message: body }] }
         default:
             return state;
     }
 }
 
-export const sendMessageCreator = (newMessageBody) => ({ type: SEND_MESSAGE, newMessageBody });
+export const sendMessageCreator = (newMessageBody) => ({ type: SEND_MESSAGE, newMessageBody })
 
-export default dialogsReducer;
+export default dialogsReducer

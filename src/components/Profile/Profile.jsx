@@ -1,15 +1,14 @@
 import MyPostsContainer from './MyPosts/MyPostsContainer';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 
-
-const Profile = (props) => {
+const Profile = ({ profile, status, updateUserStatusThunkCreator }) => {
     return <div>
         <ProfileInfo
-            profile={props.profile}
-            status={props.status}
-            updateUserStatusThunkCreator={props.updateUserStatusThunkCreator} />
+            profile={profile}
+            status={status}
+            updateUserStatusThunkCreator={updateUserStatusThunkCreator} />
         <MyPostsContainer />
     </div>
 }
 
-export default Profile;
+export default Profile

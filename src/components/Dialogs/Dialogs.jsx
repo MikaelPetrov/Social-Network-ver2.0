@@ -3,7 +3,6 @@ import DialogItem from './DialogItem/DialogItem.jsx';
 import Message from './Message/Message.jsx'
 import { AddMessageReduxForm } from './AddMessageForm/AddMessageForm';
 
-
 const Dialogs = (props) => {
     let state = props.dialogsPage;
     let dialogsElements = state.dialogs.map(d => <DialogItem name={d.name} id={d.id} key={d.id} />);
@@ -24,4 +23,4 @@ const Dialogs = (props) => {
     )
 }
 
-export default Dialogs;
+export default Dialogs

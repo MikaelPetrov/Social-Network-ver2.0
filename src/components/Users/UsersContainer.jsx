@@ -15,18 +15,19 @@ import {
     isFollowingProgressSelector,
     pageSizeSelector,
     totalCountUsersSelector,
-    usersSelector,
-    // usersPageReselect,
+    usersSelector
+    // usersPageReselect
 } from '../../redux/selectors/user-selectors';
-
 
 class UsersContainer extends React.Component {
 
     componentDidMount() {
-        this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize);
+        const { currentPage, pageSize } = this.props;
+        this.props.getUsersThunkCreator(currentPage, pageSize);
     }
     onPageChanged = (pageNumber) => {
-        this.props.getUsersThunkCreator(pageNumber, this.props.pageSize);
+        const { pageSize } = this.props;
+        this.props.getUsersThunkCreator(pageNumber, pageSize);
     }
 
     render() {
@@ -40,11 +41,11 @@ class UsersContainer extends React.Component {
                 users={this.props.users}
                 followThunkCreator={this.props.followThunkCreator}
                 unfollowThunkCreator={this.props.unfollowThunkCreator}
-                toggleIsFollowingProgress={this.props.toggleIsFollowingProgress}
                 isFollowingProgress={this.props.isFollowingProgress}
             />
         </>
     }
+
 }
 
 let mapStateToProps = (state) => {
@@ -54,17 +55,17 @@ let mapStateToProps = (state) => {
         totalCountUsers: totalCountUsersSelector(state),
         currentPage: currentPageSelector(state),
         isFetching: isFetchingSelector(state),
-        isFollowingProgress: isFollowingProgressSelector(state),
-        // users: usersPageReselect(state),
+        isFollowingProgress: isFollowingProgressSelector(state)
+        // users: usersPageReselect(state)
     }
 }
 let mapDispatchToProps = {
     getUsersThunkCreator,
     followThunkCreator,
-    unfollowThunkCreator,
+    unfollowThunkCreator
 }
 
 export default compose(
     connect(mapStateToProps, mapDispatchToProps),
-    withAuthRedirect,
-)(UsersContainer);
+    withAuthRedirect
+)(UsersContainer)
