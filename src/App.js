@@ -41,10 +41,10 @@ let mapStateToProps = (state) => ({
     initialized: state.app.initialized
 })
 let mapDispatchToProps = {
-    initializeApp,
+    initializeApp
 }
 
 export default compose(
     connect(mapStateToProps, mapDispatchToProps),
-    withRouter,
-)(App);
+    withRouter
+)(App)

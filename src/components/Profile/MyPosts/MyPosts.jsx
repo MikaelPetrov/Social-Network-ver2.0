@@ -1,10 +1,8 @@
-import React from 'react';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
 import { AddNewPostReduxForm } from './AddPostForm/AddPostForm';
 
-
-const MyPosts = (props) => {
+const MyPosts = ({ posts, addPost }) => {
 
     // shouldComponentUpdate(nextProps, nextState, nextContext){            /* for Class component - optimization count renders */
     //     return nextProps != this.props || nextState != this.state
@@ -12,10 +10,8 @@ const MyPosts = (props) => {
 
     // class MyPosts extends PureComponent {}                               /* short version for Class component */
 
-    let postsElements = props.posts.map(p => <Post message={p.message} likesCount={p.likesCount} />);
-    let addNewPost = (values) => {
-        props.addPost(values.newPostText)
-    }
+    let postsElements = [...posts].reverse().map(p => <Post message={p.message} likesCount={p.likesCount} />);
+    let addNewPost = (values) => { addPost(values.newPostText) }
     return (
         <div className={s.postsBlock}>
             <h3>My posts</h3>
@@ -27,4 +23,4 @@ const MyPosts = (props) => {
     )
 }
 
-export default MyPosts;
+export default MyPosts
