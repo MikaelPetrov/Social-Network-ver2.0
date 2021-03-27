@@ -1,4 +1,4 @@
-import { applyMiddleware, combineReducers, createStore } from "redux";
+import { applyMiddleware, combineReducers, compose, createStore } from "redux";
 import thunkMiddleware from "redux-thunk";
 import { reducer as formReducer } from 'redux-form';
 import profileReducer from "./profile-reducer";
@@ -18,7 +18,7 @@ let reducers = combineReducers({
     form: formReducer
 })
 
-let store = createStore(reducers, applyMiddleware(thunkMiddleware))
+let store = createStore(reducers, compose(applyMiddleware(thunkMiddleware)))
 
 window.store = store
 

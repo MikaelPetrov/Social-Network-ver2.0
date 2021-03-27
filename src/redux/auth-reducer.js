@@ -4,7 +4,7 @@ import { authAPI } from "../api/api";
 const SET_USER_DATA = 'social-network-ver1.0/auth/SET_USER_DATA';
 
 let initialState = {
-    id: null,
+    userId: null,
     email: null,
     login: null,
     isAuth: false
@@ -19,7 +19,7 @@ const authReducer = (state = initialState, action) => {
     }
 }
 
-export const setAuthUserData = (id, email, login, isAuth) => ({ type: SET_USER_DATA, payload: { id, email, login, isAuth } })
+export const setAuthUserData = (userId, email, login, isAuth) => ({ type: SET_USER_DATA, payload: { userId, email, login, isAuth } })
 
 export const getAuthMeThunkCreator = () => async (dispatch) => {
     let response = await authAPI.authMe();
