@@ -59,12 +59,19 @@ export const authAPI = {
         return instance
             .get(`auth/me`)
     },
-    authLogin(email, password, rememberMe = false) {
+    authLogin(email, password, rememberMe = false, captcha = null) {
         return instance
-            .post(`auth/login`, { email, password, rememberMe })
+            .post(`auth/login`, { email, password, rememberMe, captcha })
     },
     authLogout() {
         return instance
             .delete(`auth/login`)
+    }
+}
+
+export const securityAPI = {
+    getCaptchaUrl() {
+        return instance
+            .get(`security/get-captcha-url`)
     }
 }
