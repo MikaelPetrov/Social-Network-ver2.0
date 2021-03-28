@@ -7,6 +7,7 @@ import {
     getUserStatusThunkCreator,
     updateUserStatusThunkCreator,
     savePhotoThunkCreator,
+    saveProfileDataThunkCreator
 } from '../../redux/profile-reducer';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import { compose } from 'redux';
@@ -25,9 +26,11 @@ class ProfileContainer extends React.Component {
         this.props.getUserProfileThunkCreator(userId);
         this.props.getUserStatusThunkCreator(userId);
     }
+
     componentDidMount() {
         this.refreshProfile();
     }
+
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (this.props.match.params.userId != prevProps.match.params.userId) {
             this.refreshProfile();
@@ -40,22 +43,28 @@ class ProfileContainer extends React.Component {
             profile={this.props.profile}
             status={this.props.status}
             updateUserStatusThunkCreator={this.props.updateUserStatusThunkCreator}
-            savePhotoThunkCreator={this.props.savePhotoThunkCreator} />
+            savePhotoThunkCreator={this.props.savePhotoThunkCreator}
+            saveProfileDataThunkCreator={this.props.saveProfileDataThunkCreator}
+        />
     }
 
 }
 
-let mapStateToProps = (state) => ({
-    profile: state.profilePage.profile,
-    status: state.profilePage.status,
-    authorizedUserId: state.auth.userId,
-    isAuth: state.auth.isAuth
-})
+let mapStateToProps = (state) => {
+    return {
+        profile: state.profilePage.profile,
+        status: state.profilePage.status,
+        authorizedUserId: state.auth.userId,
+        isAuth: state.auth.isAuth
+    }
+}
+
 let mapDispatchToProps = {
     getUserProfileThunkCreator,
     getUserStatusThunkCreator,
     updateUserStatusThunkCreator,
-    savePhotoThunkCreator
+    savePhotoThunkCreator,
+    saveProfileDataThunkCreator
 }
 
 export default compose(

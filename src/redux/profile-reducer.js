@@ -1,3 +1,4 @@
+import { stopSubmit } from "redux-form";
 import { profileAPI, usersAPI } from "../api/api";
 
 const ADD_POST = 'social-network-ver1.0/profile/ADD_POST';
@@ -44,23 +45,37 @@ export const setProfilePhotoCreator = (photos) => ({ type: SET_PROFILE_PHOTO, ph
 // export const deletePostCreator = (postId) => ({ type: DELETE_POST, postId })
 
 export const getUserProfileThunkCreator = (userId) => async (dispatch) => {
-    let response = await usersAPI.getUserProfile(userId);
+    const response = await usersAPI.getUserProfile(userId);
     dispatch(setUserProfileCreator(response.data));
 }
+
 export const getUserStatusThunkCreator = (userId) => async (dispatch) => {
     let response = await profileAPI.getUserStatus(userId);
     dispatch(setUserStatusCreator(response.data));
 }
+
 export const updateUserStatusThunkCreator = (status) => async (dispatch) => {
     let response = await profileAPI.updateUserStatus(status);
     if (response.data.resultCode === 0) {
         dispatch(setUserStatusCreator(status));
     }
 }
+
 export const savePhotoThunkCreator = (file) => async (dispatch) => {
     let response = await profileAPI.saveProfilePhoto(file);
     if (response.data.resultCode === 0) {
-        dispatch(setProfilePhotoCreator(response.data.photos));
+        dispatch(setProfilePhotoCreator(response.data.data.photos));
+    }
+}
+
+export const saveProfileDataThunkCreator = (profile) => async (dispatch, getState) => {
+    let userId = getState().auth.userId;
+    let response = await profileAPI.saveProfileData(profile);
+    if (response.data.resultCode === 0) {
+        dispatch(getUserProfileThunkCreator(userId));
+    } else {
+        dispatch(stopSubmit('editProfileForm', { _error: response.data.messages[0] }));
+        return Promise.reject(response.data.messages[0]);
     }
 }
 
