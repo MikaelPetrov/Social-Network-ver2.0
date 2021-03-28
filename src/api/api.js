@@ -1,6 +1,5 @@
 import * as axios from "axios";
 
-
 const instance = axios.create({
     withCredentials: true,
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -27,8 +26,9 @@ export const usersAPI = {
     },
     getUserProfile(userId) {
         return profileAPI.getUserProfile(userId)
-    },
+    }
 }
+
 export const profileAPI = {
     getUserProfile(userId) {
         return instance
@@ -44,11 +44,16 @@ export const profileAPI = {
     },
     saveProfilePhoto(photoFile) {
         const formData = new FormData();
-        formData.append('image', photoFile);
+        formData.append('image', photoFile)
         return instance
             .put(`profile/photo`, formData, { headers: { 'Content-Type': 'multipart/form-data' } })
     },
+    saveProfileData(profile) {
+        return instance
+            .put(`profile`, profile)
+    }
 }
+
 export const authAPI = {
     authMe() {
         return instance
@@ -61,5 +66,5 @@ export const authAPI = {
     authLogout() {
         return instance
             .delete(`auth/login`)
-    },
+    }
 }
