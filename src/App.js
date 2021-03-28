@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, withRouter } from 'react-router-dom';
+import { BrowserRouter, Redirect, Route, Switch, withRouter } from 'react-router-dom';
 import './App.css';
 import Navbar from './components/Navbar/Navbar.jsx';
 import HeaderContainer from './components/Header/HeaderContainer';
@@ -29,10 +29,14 @@ class App extends Component {
             <HeaderContainer />
             <Navbar />
             <div className='app-wrapper-content'>
-                <Route path='/dialogs' render={withSuspense(DialogsContainer)} />
-                <Route path='/profile/:userId?' render={withSuspense(ProfileContainer)} />
-                <Route path='/users' render={() => <UsersContainer />} />
-                <Route path='/login' render={() => <LoginPage />} />
+                <Switch>
+                    <Redirect exact from='/' to='/profile' />
+                    <Route path='/dialogs' render={withSuspense(DialogsContainer)} />
+                    <Route path='/profile/:userId?' render={withSuspense(ProfileContainer)} />
+                    <Route path='/users' render={() => <UsersContainer />} />
+                    <Route path='/login' render={() => <LoginPage />} />
+                    <Route path='*' render={() => <div>404 PAGE NOT FOUND</div>} />
+                </Switch>
             </div>
         </div>
     }
