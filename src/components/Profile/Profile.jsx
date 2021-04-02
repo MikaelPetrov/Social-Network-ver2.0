@@ -1,16 +1,15 @@
 import MyPostsContainer from './MyPosts/MyPostsContainer';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 
-const Profile = ({ isOwner, profile, status, updateUserStatusThunkCreator, savePhotoThunkCreator, saveProfileDataThunkCreator }) => {
+const Profile = ({ isOwner, profile, status, updateUserStatusThunk, savePhotoThunk, saveProfileDataThunk }) => {
     return <div>
         <ProfileInfo
             isOwner={isOwner}
             profile={profile}
             status={status}
-            updateUserStatusThunkCreator={updateUserStatusThunkCreator}
-            savePhotoThunkCreator={savePhotoThunkCreator}
-            saveProfileDataThunkCreator={saveProfileDataThunkCreator}
-        />
+            updateUserStatusThunk={updateUserStatusThunk}
+            savePhotoThunk={savePhotoThunk}
+            saveProfileDataThunk={saveProfileDataThunk} />
         <MyPostsContainer />
     </div>
 }
