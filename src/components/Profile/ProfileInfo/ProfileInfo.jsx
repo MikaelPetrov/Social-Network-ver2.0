@@ -5,19 +5,19 @@ import ProfileStatus from './ProfileStatusWithHook';
 import { useState } from 'react';
 import ProfileDataReduxForm from './ProfileDataForm';
 
-const ProfileInfo = ({ profile, status, updateUserStatusThunkCreator, isOwner, savePhotoThunkCreator, saveProfileDataThunkCreator }) => {
+const ProfileInfo = ({ profile, status, updateUserStatusThunk, isOwner, savePhotoThunk, saveProfileDataThunk }) => {
 
-    let [editMode, setEditMode] = useState(false);
+    let [editMode, setEditMode] = useState(false)
 
     if (!profile) {
         return <Preloader />
     }
     const onMainPhotoSelected = (e) => {
-        if (e.target.files.length) { savePhotoThunkCreator(e.target.files[0]); }
+        if (e.target.files.length) { savePhotoThunk(e.target.files[0]) }
     }
     const onSubmit = (formData) => {
-        saveProfileDataThunkCreator(formData).then(() => {
-            setEditMode(false);
+        saveProfileDataThunk(formData).then(() => {
+            setEditMode(false)
         })
     }
 
@@ -28,7 +28,7 @@ const ProfileInfo = ({ profile, status, updateUserStatusThunkCreator, isOwner, s
             {editMode
                 ? <ProfileDataReduxForm initialValues={profile} profile={profile} onSubmit={onSubmit} />
                 : <ProfileData goToEditMode={() => { setEditMode(true) }} profile={profile} isOwner={isOwner} />}
-            <ProfileStatus status={status} updateUserStatusThunkCreator={updateUserStatusThunkCreator} />
+            <ProfileStatus status={status} updateUserStatusThunk={updateUserStatusThunk} />
         </div>
     </div>
 
@@ -43,11 +43,9 @@ const ProfileData = ({ profile, isOwner, goToEditMode }) => {
         <div>
             <b>Looking for a job:</b> {profile.lookingForAJob ? 'yes' : 'no'}
         </div>
-        {profile.lookingForAJob &&
-            <div>
-                <b>My professional skills:</b> {profile.lookingForAJobDescription}
-            </div>
-        }
+        {profile.lookingForAJob && <div>
+            <b>My professional skills:</b> {profile.lookingForAJobDescription}
+        </div>}
         <div>
             <b>About me:</b> {profile.aboutMe}
         </div>

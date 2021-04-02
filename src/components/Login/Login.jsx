@@ -1,9 +1,9 @@
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import { reduxForm } from "redux-form";
-import { loginThunkCreator } from "../../redux/auth-reducer";
-import { required } from "../../utils/validators/validators";
-import { createField, Input } from "../common/FormControl/FormControl";
+import { loginThunk } from '../../redux/auth-reducer';
+import { required } from '../../utils/validators/validators';
+import { createField, Input } from '../common/FormControl/FormControl';
 import s from '../common/FormControl/FormControl.module.css';
 
 const LoginForm = ({ handleSubmit, error, captchaUrl }) => {
@@ -24,7 +24,7 @@ const LoginReduxForm = reduxForm({ form: 'loginForm' })(LoginForm)
 
 const Login = (props) => {
     const onSubmit = (formData) => {
-        props.loginThunkCreator(formData.email, formData.password, formData.rememberMe, formData.captcha);
+        props.loginThunk(formData.email, formData.password, formData.rememberMe, formData.captcha)
     }
     if (props.isAuth) {
         return <Redirect to={'/profile'} />
@@ -40,7 +40,7 @@ const mapStateToProps = (state) => ({
     isAuth: state.auth.isAuth
 })
 const mapDispatchToProps = {
-    loginThunkCreator
+    loginThunk
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)

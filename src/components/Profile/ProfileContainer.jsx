@@ -1,39 +1,35 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
+import { connect } from "react-redux";
+import { withRouter } from "react-router";
 import Profile from './Profile';
 import {
-    getUserProfileThunkCreator,
-    getUserStatusThunkCreator,
-    updateUserStatusThunkCreator,
-    savePhotoThunkCreator,
-    saveProfileDataThunkCreator
+    getUserProfileThunk, getUserStatusThunk, updateUserStatusThunk, savePhotoThunk, saveProfileDataThunk
 } from '../../redux/profile-reducer';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
-import { compose } from 'redux';
+import { compose } from "redux";
 
 class ProfileContainer extends React.Component {
 
     refreshProfile() {
-        let userId = this.props.match.params.userId;
+        let userId = this.props.match.params.userId
         if (!userId) {
-            userId = this.props.authorizedUserId;
+            userId = this.props.authorizedUserId
             if (!userId) {
-                this.props.history.push('/login');
+                this.props.history.push('/login')
             }
             // userId = 15828;
         }
-        this.props.getUserProfileThunkCreator(userId);
-        this.props.getUserStatusThunkCreator(userId);
+        this.props.getUserProfileThunk(userId)
+        this.props.getUserStatusThunk(userId)
     }
 
     componentDidMount() {
-        this.refreshProfile();
+        this.refreshProfile()
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.match.params.userId != prevProps.match.params.userId) {
-            this.refreshProfile();
+        if (this.props.match.params.userId !== prevProps.match.params.userId) {
+            this.refreshProfile()
         }
     }
 
@@ -42,10 +38,9 @@ class ProfileContainer extends React.Component {
             isOwner={!this.props.match.params.userId}
             profile={this.props.profile}
             status={this.props.status}
-            updateUserStatusThunkCreator={this.props.updateUserStatusThunkCreator}
-            savePhotoThunkCreator={this.props.savePhotoThunkCreator}
-            saveProfileDataThunkCreator={this.props.saveProfileDataThunkCreator}
-        />
+            updateUserStatusThunk={this.props.updateUserStatusThunk}
+            savePhotoThunk={this.props.savePhotoThunk}
+            saveProfileDataThunk={this.props.saveProfileDataThunk} />
     }
 
 }
@@ -58,13 +53,12 @@ let mapStateToProps = (state) => {
         isAuth: state.auth.isAuth
     }
 }
-
 let mapDispatchToProps = {
-    getUserProfileThunkCreator,
-    getUserStatusThunkCreator,
-    updateUserStatusThunkCreator,
-    savePhotoThunkCreator,
-    saveProfileDataThunkCreator
+    getUserProfileThunk,
+    getUserStatusThunk,
+    updateUserStatusThunk,
+    savePhotoThunk,
+    saveProfileDataThunk
 }
 
 export default compose(

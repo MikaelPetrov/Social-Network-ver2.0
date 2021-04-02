@@ -1,12 +1,12 @@
-import reportWebVitals from './reportWebVitals';
+import reportWebVitals from "./reportWebVitals";
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import MPSNApp from './App';
+import ReactDOM from "react-dom";
+import "./index.css";
+import AppSquare from "./App";
 
 ReactDOM.render(
     <React.StrictMode>
-        <MPSNApp />
+        <AppSquare />
     </React.StrictMode>, document.getElementById('root')
 )
 

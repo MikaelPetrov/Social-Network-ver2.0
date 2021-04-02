@@ -1,16 +1,16 @@
-import { BrowserRouter, Redirect, Route, Switch, withRouter } from 'react-router-dom';
-import './App.css';
-import Navbar from './components/Navbar/Navbar.jsx';
+import { BrowserRouter, Redirect, Route, Switch, withRouter } from "react-router-dom";
+import "./App.css";
+import Navbar from './components/Navbar/Navbar';
 import HeaderContainer from './components/Header/HeaderContainer';
 import UsersContainer from './components/Users/UsersContainer';
 import LoginPage from './components/Login/Login';
-import React, { Component } from 'react';
-import { initializeApp } from './redux/app-reducer';
-import { connect, Provider } from 'react-redux';
-import { compose } from 'redux';
+import React, { Component } from "react";
+import { initializeAppThunk } from './redux/app-reducer';
+import { connect, Provider } from "react-redux";
+import { compose } from "redux";
 import Preloader from './components/common/Preloader/Preloader';
 import store from './redux/redux-store';
-import { withSuspense } from './hoc/withSuspense.js';
+import { withSuspense } from './hoc/withSuspense';
 
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'))
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'))
@@ -18,7 +18,7 @@ const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileCo
 class App extends Component {
 
     componentDidMount() {
-        this.props.initializeApp();
+        this.props.initializeAppThunk();
     }
 
     render() {
@@ -47,7 +47,7 @@ let mapStateToProps = (state) => ({
     initialized: state.app.initialized
 })
 let mapDispatchToProps = {
-    initializeApp
+    initializeAppThunk
 }
 
 let AppContainer = compose(
@@ -55,7 +55,7 @@ let AppContainer = compose(
     withRouter
 )(App)
 
-const MPSNApp = (props) => {
+const AppSquare = (props) => {
     return <BrowserRouter>
         <Provider store={store}>
             <AppContainer />
@@ -63,4 +63,4 @@ const MPSNApp = (props) => {
     </BrowserRouter>
 }
 
-export default MPSNApp
+export default AppSquare

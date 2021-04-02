@@ -1,26 +1,25 @@
-import React from "react";
-
+import React from 'react';
 
 class ProfileStatus extends React.Component {
 
     state = {
         editMode: false,
-        status: this.props.status,
+        status: this.props.status
     }
     activeEditMode = () => {
         this.setState({
-            editMode: true,
+            editMode: true
         })
     }
     deactivateEditMode = () => {
         this.setState({
-            editMode: false,
+            editMode: false
         })
-        this.props.updateUserStatusThunkCreator(this.state.status)
+        this.props.updateUserStatusThunk(this.state.status)
     }
     onStatusChange = (e) => {
         this.setState({
-            status: e.currentTarget.value,
+            status: e.currentTarget.value
         })
     }
     componentDidUpdate = (prevProps, prevState) => {
@@ -33,25 +32,21 @@ class ProfileStatus extends React.Component {
 
     render() {
         return <div>
-            {!this.state.editMode &&
-                <div>
-                    <span
-                        onDoubleClick={this.activeEditMode}>{this.props.status || "-------"}
-                    </span>
-                </div>
-            }
-            {this.state.editMode &&
-                <div>
-                    <input
-                        onChange={this.onStatusChange}
-                        autoFocus={true}
-                        onBlur={this.deactivateEditMode}
-                        value={this.state.status} />
-                </div>
-            }
+            {!this.state.editMode && <div>
+                <span
+                    onDoubleClick={this.activeEditMode}>{this.props.status || "-------"}
+                </span>
+            </div>}
+            {this.state.editMode && <div>
+                <input
+                    onChange={this.onStatusChange}
+                    autoFocus={true}
+                    onBlur={this.deactivateEditMode}
+                    value={this.state.status} />
+            </div>}
         </div>
     }
 
 }
 
-export default ProfileStatus;
+export default ProfileStatus
