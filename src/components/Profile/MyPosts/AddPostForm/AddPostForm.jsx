@@ -1,9 +1,8 @@
-import React from 'react';
 import { Field, reduxForm } from 'redux-form';
-import { maxLengthThunkCreator, required } from '../../../../utils/validators/validators';
+import { maxLengthThunk, required } from '../../../../utils/validators/validators';
 import { TextArea } from '../../../common/FormControl/FormControl';
 
-const maxLengthText = maxLengthThunkCreator(30);
+const maxLengthText = maxLengthThunk(30);
 
 const AddNewPostForm = (props) => {
     return <form onSubmit={props.handleSubmit}>
