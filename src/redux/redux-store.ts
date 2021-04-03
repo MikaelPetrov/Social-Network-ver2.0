@@ -8,7 +8,7 @@ import usersReducer from './users-reducer';
 import authReducer from './auth-reducer';
 import appReducer from './app-reducer';
 
-let reducers = combineReducers({
+let rootReducer = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     sidebar: sidebarReducer,
@@ -18,8 +18,12 @@ let reducers = combineReducers({
     form: formReducer
 })
 
-let store = createStore(reducers, compose(applyMiddleware(thunkMiddleware)))
+type RootReducerType = typeof rootReducer
+export type AppStateType = ReturnType<RootReducerType>
 
+let store = createStore(rootReducer, compose(applyMiddleware(thunkMiddleware)))
+
+//  @ts-ignore
 window.store = store
 
 export default store

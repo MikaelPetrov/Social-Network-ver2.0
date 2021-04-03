@@ -33,7 +33,7 @@ class App extends Component {
                     <Redirect exact from='/' to='/profile' />
                     <Route path='/dialogs' render={withSuspense(DialogsContainer)} />
                     <Route path='/profile/:userId?' render={withSuspense(ProfileContainer)} />
-                    <Route path='/users' render={() => <UsersContainer />} />
+                    <Route path='/users' render={() => <UsersContainer pageTitle={'Users:'} />} />
                     <Route path='/login' render={() => <LoginPage />} />
                     <Route path='*' render={() => <div>404 PAGE NOT FOUND</div>} />
                 </Switch>

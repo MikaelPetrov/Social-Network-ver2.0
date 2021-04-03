@@ -16,7 +16,7 @@ type usersInitialStateType = typeof usersInitialState
 let usersInitialState = {
     users: [] as Array<UserType>,
     pageSize: 100 as number,
-    totalCountUsers: 0 as number,
+    totalUsersCount: 0 as number,
     currentPage: 1 as number,
     isFetching: false as boolean,
     isFollowingProgress: [] as Array<number>
@@ -33,7 +33,7 @@ const usersReducer = (state = usersInitialState, action: any): usersInitialState
         case SET_CURRENT_PAGE:
             return { ...state, currentPage: action.currentPage }
         case SET_TOTAL_COUNT_USERS:
-            return { ...state, totalCountUsers: action.count }
+            return { ...state, totalUsersCount: action.count }
         case TOGGLE_IS_FETCHING:
             return { ...state, isFetching: action.isFetching }
         case TOGGLE_IS_FOLLOWING_PROGRESS:
@@ -76,12 +76,12 @@ type SetCurrentPageActionType = {
 }
 export const setCurrentPageAction = (currentPage: number): SetCurrentPageActionType => ({ type: SET_CURRENT_PAGE, currentPage })
 
-//  setTotalCountUsersAction
-type SetTotalCountUsersActionType = {
+//  setTotalUsersCountAction
+type SetTotalUsersCountActionType = {
     type: typeof SET_TOTAL_COUNT_USERS
     count: number
 }
-export const setTotalCountUsersAction = (totalCountUsers: number): SetTotalCountUsersActionType => ({ type: SET_TOTAL_COUNT_USERS, count: totalCountUsers })
+export const setTotalUsersCountAction = (totalUsersCount: number): SetTotalUsersCountActionType => ({ type: SET_TOTAL_COUNT_USERS, count: totalUsersCount })
 
 //  toggleIsFetchingAction
 type ToggleIsFetchingActionType = {
@@ -107,7 +107,7 @@ export const getUsersThunk = (page: number, pageSize: number) => async (dispatch
     let data = await usersAPI.getUsers(page, pageSize)
     dispatch(toggleIsFetchingAction(false))
     dispatch(setUsersAction(data.items))
-    dispatch(setTotalCountUsersAction(data.totalCount))
+    dispatch(setTotalUsersCountAction(data.totalCount))
 }
 
 //  followUnfollowFlow
