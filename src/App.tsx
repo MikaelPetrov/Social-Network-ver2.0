@@ -9,16 +9,24 @@ import { initializeAppThunk } from './redux/app-reducer';
 import { connect, Provider } from "react-redux";
 import { compose } from "redux";
 import Preloader from './components/common/Preloader/Preloader';
-import store from './redux/redux-store';
+import store, { AppStateType } from './redux/redux-store';
 import { withSuspense } from './hoc/withSuspense';
 
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'))
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'))
 
-class App extends Component {
+type StatePropsType = ReturnType<typeof mapStateToProps>
+type DispatchPropsType = {
+    initializeAppThunk: () => void
+}
+
+const SuspendedDialogs = withSuspense(DialogsContainer)
+const SuspendedProfile = withSuspense(ProfileContainer)
+
+class App extends Component<StatePropsType & DispatchPropsType> {
 
     componentDidMount() {
-        this.props.initializeAppThunk();
+        this.props.initializeAppThunk()
     }
 
     render() {
@@ -31,31 +39,40 @@ class App extends Component {
             <div className='app-wrapper-content'>
                 <Switch>
                     <Redirect exact from='/' to='/profile' />
-                    <Route path='/dialogs' render={withSuspense(DialogsContainer)} />
-                    <Route path='/profile/:userId?' render={withSuspense(ProfileContainer)} />
-                    <Route path='/users' render={() => <UsersContainer pageTitle={'Users:'} />} />
-                    <Route path='/login' render={() => <LoginPage />} />
-                    <Route path='*' render={() => <div>404 PAGE NOT FOUND</div>} />
+                    <Route
+                        path='/dialogs'
+                        render={() => <SuspendedDialogs />} />
+                    <Route
+                        path='/profile/:userId?'
+                        render={() => <SuspendedProfile />} />
+                    <Route
+                        path='/users'
+                        render={() => <UsersContainer /*pageTitle={"Users:"}*/ />} />
+                    <Route
+                        path='/login'
+                        render={() => <LoginPage />} />
+                    <Route
+                        path='*'
+                        render={() => <div>404 PAGE NOT FOUND</div>} />
                 </Switch>
             </div>
         </div>
     }
-
 }
 
-let mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppStateType) => ({
     initialized: state.app.initialized
 })
-let mapDispatchToProps = {
+const mapDispatchToProps: DispatchPropsType = {
     initializeAppThunk
 }
 
-let AppContainer = compose(
+const AppContainer = compose<React.ComponentType>(
     connect(mapStateToProps, mapDispatchToProps),
     withRouter
 )(App)
 
-const AppSquare = (props) => {
+const AppSquare: React.FC = (props) => {
     return <BrowserRouter>
         <Provider store={store}>
             <AppContainer />

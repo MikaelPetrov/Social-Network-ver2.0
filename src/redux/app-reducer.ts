@@ -1,39 +1,37 @@
+import { InferActionsTypes } from './redux-store';
 import { getAuthMeThunk } from './auth-reducer';
 
-const INITIALIZED_SUCCESS = 'INITIALIZED_SUCCESS'
-
 //  appInitialState and appReducer
-let appInitialState = {
-    initialized: false as boolean
+const appInitialState = {
+    initialized: false
 }
 
-type AppInitialStateType = typeof appInitialState
-
-const appReducer = (state = appInitialState, action: any): AppInitialStateType => {
+const appReducer = (state = appInitialState, action: ActionsType): AppInitialStateType => {
     switch (action.type) {
-        case INITIALIZED_SUCCESS:
-            return {
-                ...state, initialized: true
-            }
+        case 'social-network-ver2.0/app/INITIALIZED_SUCCESS':
+            return { ...state, initialized: true }
         default:
             return state
     }
 }
 
-//  initializedSuccessAction
-type InitializedSuccessActionType = {
-    type: typeof INITIALIZED_SUCCESS    //  'INITIALIZED_SUCCESS'
+//  actions
+export const actions = {
+    initializedSuccessAction: () => ({ type: 'social-network-ver2.0/app/INITIALIZED_SUCCESS' } as const)
 }
-export const initializedSuccessAction = (): InitializedSuccessActionType => ({ type: INITIALIZED_SUCCESS })
 
 //  initializeAppThunk
 export const initializeAppThunk = () => (dispatch: any) => {
+
     let promise = dispatch(getAuthMeThunk())
-    Promise.all([promise])
-        .then(() => {
-            dispatch(initializedSuccessAction())
-        })
+
+    Promise.all([promise]).then(() => {
+        dispatch(actions.initializedSuccessAction())
+    })
 }
+
+type AppInitialStateType = typeof appInitialState
+type ActionsType = InferActionsTypes<typeof actions>
 
 //  export default
 export default appReducer
