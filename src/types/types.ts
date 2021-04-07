@@ -1,19 +1,3 @@
-export type DialogType = {  //  dialogs-reducer
-    id: number
-    name: string
-}
-
-export type MessageType = {  //  dialogs-reducer
-    id: number
-    message: string
-}
-
-export type PostType = {  //  profile-reducer
-    id: number
-    message: string
-    likesCount: number
-}
-
 export type ContactType = {  //  profile-reducer
     github: string
     vk: string
@@ -25,39 +9,31 @@ export type ContactType = {  //  profile-reducer
     mainLink: string
 }
 
-export type PhotoType = {  //  profile-reducer, users-reducer
+export type PhotosType = {  //  profile-reducer, users-reducer
     small: string | null
     large: string | null
 }
 
+export type PostType = {  //  profile-reducer
+    id: number
+    message: string
+    likesCount: number
+}
+
 export type ProfileType = {  //  profile-reducer
-    userId: number | null
+    userId: number
     lookingForAJob: boolean
     lookingForAJobDescription: string
     fullName: string
     contacts: ContactType
-    photos: PhotoType
+    photos: PhotosType
+    aboutMe: string
 }
 
 export type UserType = {  //  users-reducer
     id: number
     name: string
-    uniqueUrlName: string
     status: string
+    photos: PhotosType
     followed: boolean
-    photos: PhotoType
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
