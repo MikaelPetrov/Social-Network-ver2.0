@@ -54,6 +54,9 @@ class UsersContainer extends React.Component<UsersPropsType> {
     render() {
         return <>
             {/* <h2>{this.props.pageTitle}</h2> */}
+            <h2>
+                <b>Users of social-network:</b>
+            </h2>
             {this.props.isFetching ? <Preloader /> : null}
             <UsersMemorized
                 totalUsersCount={this.props.totalUsersCount}
