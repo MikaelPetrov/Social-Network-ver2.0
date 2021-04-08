@@ -7,11 +7,13 @@ export const usersAPI = {
         return res.data;
     },
 
-    followProcess(userId: number) {
-        return instance.post<APIResponseType>(`follow/${userId}`)
+    async followProcess(userId: number) {
+        const res = await instance.post<APIResponseType>(`follow/${userId}`);
+        return res.data;
     },
 
-    unfollowProcess(userId: number) {
-        return instance.delete<APIResponseType>(`follow/${userId}`)
+    async unfollowProcess(userId: number) {
+        const res = await instance.delete<APIResponseType>(`follow/${userId}`);
+        return res.data;
     }
 }
